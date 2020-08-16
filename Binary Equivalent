@@ -45,10 +45,10 @@ ll subsets(vector < pair <ll , ll> > &v , ll N)
 		    	if( i & ( 1 << j))
 				    {
           
-            ones += v[j].first ;
-				    zeros += v[j].second ;
-			    
-            }
+          			     ones += v[j].first ;
+				     zeros += v[j].second ;
+							    
+           			    }
 
     // if number of zeros and ones are equal , increment the total
    
