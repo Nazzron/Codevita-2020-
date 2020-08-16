@@ -33,6 +33,9 @@ const ll mod = 1e9 + 7 ;
 
 int main()
 {
+
+	// A vector pair to store the index and cost 
+	
 	vector <pair <ll , ll> > cost ;
 
 	for(ll i = 0 ; i < 3 ; i++)
@@ -43,6 +46,7 @@ int main()
 			cost.pb(make_pair(i , x)) ;
 
 		}
+	// A vector pair to store the index and max area 
 
 	vector <pair <ll , ll> > max_area ;
 
@@ -78,6 +82,7 @@ int main()
         
         
      // First we meet the minimum criteria for each type 
+     // and subrtact the the area from total zoo area and max area given for each animal type
      
      
 	for(ll i = 0 ; i < 3 ; i++)
@@ -98,6 +103,8 @@ int main()
 		ll j = 0 ;
 
 		ll mini = INT_MAX ;
+		
+		// We basically apply a reverse greedy approach here , we find the minimum cost  
 
 		for(ll i = 0 ; i < 3 ; i++)
 		{
@@ -109,6 +116,7 @@ int main()
 			}
 		}
 
+	// If the zoo area is greater or equal to the area left of the animal type we include it fully
 
 	if(zoo_area >= max_area[j].second)
 	{
@@ -119,12 +127,14 @@ int main()
 		max_area[j].second = 0 ;
 	}
 
+	// Else if zoo area is less , for example only 75 of zoo area is left so we multiply 75 with the minimum cost acquired and break the while loop as zoo area is now 0 
+	
 	else if(zoo_area < max_area[j].second)
 	{
 
 		res += zoo_area * cost[j].second ;
         
-        zoo_area =  0 ;
+		break ;
 
 	}
 
