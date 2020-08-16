@@ -34,6 +34,8 @@ const ll mod = 1e9 + 7 ;
 void elections(deque<char> &dq , ll n)
 {
 
+// Intialize c1 and c2 for A and B 
+// Let's consider this example  " B - - - A "
     ll c1 = 0 , c2 = 0 ;
 
 	while(!dq.empty())
@@ -41,8 +43,9 @@ void elections(deque<char> &dq , ll n)
 		char x = dq.front() ;
 
 		dq.pop_front() ;
-
-		ll c3 = 0 ;
+	
+	
+		ll c3 = 0 ;	// C3 for '-' (neutral voters)
 
 		if(x == '-')
 		{
@@ -58,6 +61,8 @@ void elections(deque<char> &dq , ll n)
 
 
 		}
+		
+		// A can only move in left direction so , anything right of A doesn't matter
 
 		else if(x == 'A')
 		{
@@ -77,26 +82,28 @@ void elections(deque<char> &dq , ll n)
 			else
                 continue ;
 		}
-
+		
+		// B Only moves in right direction , so if the next to B is '-' , B will try to convice him
 		else if(x == 'B')
 		{
-			c2++ ;
+			c2++ ;					// c2 = 1 
 
-			if(dq.front() == '-')
+			if(dq.front() == '-')  			//  Dequeue at present moment " - - - A "
 			{
 				while(dq.front() == '-')
 				{
 					c3++ ;
 					dq.pop_front() ;
-				}
+				}				// c3 is now 3 , Dequeue " A "
 
-				if(dq.front() == 'A')
+				if(dq.front() == 'A') 		// After 3 pops , "A" is encounter , so the votes will be split in 2 
+								
 				{
-					ll votes = floor(c3/2) ;
+					ll votes = floor(c3/2) ;		// votes = 3/2 i.e 1 
           
-					c1 += votes ;
+					c1 += votes ;				// c1 = 1 
 
-					c2 += votes ;
+					c2 += votes ;				// c2 = 2
 				}
 
 				else if(dq.front() == 'B')
@@ -104,9 +111,11 @@ void elections(deque<char> &dq , ll n)
 			}
 
 		}
-
+		// after first iteration the deuque will only contain -> " A " , therefore c1 += 1 , c1 = 2 
 	}
-
+	
+	
+	// c1 = 2 , c2 = 2 , therefore , Coalition government will be the answer
 
 	if(c1 > c2)
 		cout << "A" ;
