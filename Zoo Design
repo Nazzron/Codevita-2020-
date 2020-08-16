@@ -1,0 +1,154 @@
+#include<bits/stdc++.h>
+using namespace std ;
+#define ll long long
+#define udll unsigned long long
+#define pb push_back
+#define mii map <int, int>
+#define mll map <ll, ll>
+#define pii pair <int, int>
+#define pll pair <ll, ll>
+#define vi vector <int>
+#define vd vector <double>
+#define vll vector <ll>
+#define fi first
+#define se second
+#define si set <int>
+#define sll set <ll>
+#define spii set <pii>
+#define vs vector <string>
+#define vpii vector <pair <int,int> >
+#define vpll vector <pair <long long,long long> >
+#define vvi vector <vector <int> >
+#define vvpii vector <vector <pii > >
+#define mp make_pair
+#define vvll vector <vll>
+#define vsi vector <si>
+#define forn(i, n) for (int i = 0; i <= (n); i++)
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define for1(i, n) for (int i = 1; i < (n); i++)
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(),(x).rend()
+#define haha ios::sync_with_stdio(false); cin.tie(0);cout.tie(0)
+const ll mod = 1e9 + 7 ;
+
+int main()
+{
+	vector <pair <ll , ll> > cost ;
+
+	for(ll i = 0 ; i < 3 ; i++)
+		{
+			ll x ;
+			cin >> x ;
+
+			cost.pb(make_pair(i , x)) ;
+
+		}
+
+	vector <pair <ll , ll> > max_area ;
+
+	for(ll i = 0 ; i < 3 ; i++)
+		{
+			ll x ;
+			cin >> x ;
+
+			max_area.pb(make_pair(i , x)) ;
+
+		}
+
+    // We store minimum number of animals and the minimum area required by them 
+    
+    
+ 	vector<pair < ll ,pair <ll , ll> > > min_animals ;
+
+    
+	for(ll i = 0 ; i < 3 ; i++)
+	{
+		ll x , y ;
+
+		cin >> x >> y ;
+
+		min_animals.pb(make_pair(i , make_pair(x , y))) ;
+	}
+
+	ll zoo_area ;
+
+	cin >> zoo_area ;
+
+	ll res = 0 ;    // To store the total amount of money
+        
+        
+     // First we meet the minimum criteria for each type 
+     
+     
+	for(ll i = 0 ; i < 3 ; i++)
+	{
+		res += (min_animals[i].second.first * min_animals[i].second.second) * cost[i].second ;
+
+		zoo_area -= (min_animals[i].second.first * min_animals[i].second.second) ;
+
+		max_area[i].second -= (min_animals[i].second.first * min_animals[i].second.second) ;
+	}
+
+
+// Now we go for the least cost animal type so we can save maximum money till the zoo area is 0 
+
+	while(zoo_area > 0)
+	{
+
+		ll j = 0 ;
+
+		ll mini = INT_MAX ;
+
+		for(ll i = 0 ; i < 3 ; i++)
+		{
+			if(zoo_area > 0 and max_area[i].second > 0 and cost[i].second < mini)
+			{
+				j = i ;
+
+				mini = cost[i].second ;
+			}
+		}
+
+
+	if(zoo_area >= max_area[j].second)
+	{
+		res += max_area[j].second * cost[j].second ;
+
+		zoo_area -= max_area[j].second ;
+
+		max_area[j].second = 0 ;
+	}
+
+	else if(zoo_area < max_area[j].second)
+	{
+
+		res += zoo_area * cost[j].second ;
+        
+        zoo_area =  0 ;
+
+	}
+
+	}
+
+	cout << res ;
+
+
+}
+
+/*
+10000 1000 1500
+250 250 300
+5 5
+15 5
+10 10
+500
+
+
+
+100 1000 1500
+250 250 300
+5 5
+15 5
+10 10
+500
+*/
