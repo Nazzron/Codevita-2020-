@@ -53,8 +53,8 @@ ll subsets(vector < pair <ll , ll> > &v , ll N)
     // if number of zeros and ones are equal , increment the total
    
 			if(ones == zeros)
-                total++ ;
-
+             		   total++ ;
+	
 	}
 
 	return total ;
