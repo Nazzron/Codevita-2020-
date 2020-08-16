@@ -1,0 +1,139 @@
+#include<bits/stdc++.h>
+using namespace std ;
+#define ll long long
+#define udll unsigned long long
+#define pb push_back
+#define mii map <int, int>
+#define mll map <ll, ll>
+#define pii pair <int, int>
+#define pll pair <ll, ll>
+#define vi vector <int>
+#define vd vector <double>
+#define vll vector <ll>
+#define fi first
+#define se second
+#define si set <int>
+#define sll set <ll>
+#define spii set <pii>
+#define vs vector <string>
+#define vpii vector <pair <int,int> >
+#define vpll vector <pair <long long,long long> >
+#define vvi vector <vector <int> >
+#define vvpii vector <vector <pii > >
+#define mp make_pair
+#define vvll vector <vll>
+#define vsi vector <si>
+#define forn(i, n) for (int i = 0; i <= (n); i++)
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define for1(i, n) for (int i = 1; i < (n); i++)
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(),(x).rend()
+#define haha ios::sync_with_stdio(false); cin.tie(0);cout.tie(0)
+const ll mod = 1e9 + 7 ;
+
+ll subsets(vector < pair <ll , ll> > &v , ll N)
+{
+    ll total = 0 ;
+    
+  // start the loop from 1 , to avoid null subset and count number of 1's and o's in each subset
+  
+	for(ll i = 1 ; i < ( 1 << N) ; i++)
+	{
+	    ll zeros = 0 , ones = 0 ;
+      
+		  for(ll j = 0 ; j < N ; j++)
+		    	if( i & ( 1 << j))
+				    {
+          
+            ones += v[j].first ;
+				    zeros += v[j].second ;
+			    
+            }
+
+    // if number of zeros and ones are equal , increment the total
+   
+			if(ones == zeros)
+                total++ ;
+
+	}
+
+	return total ;
+}
+
+// A simple funtion to convert a number into its binary form
+
+void dec_binary(ll n , ll m)
+{
+
+	for(ll i = m - 1 ; i >= 0 ; i--)
+	{
+		ll k = n >> i ;
+
+		if(k&1)
+			  cout << 1 ;
+		else
+			  cout << 0 ;
+	}
+
+
+}
+
+int main()
+{
+	ll n ;
+
+	cin >> n ;
+
+	ll a[n] ;
+
+	ll maxx = INT_MIN ;
+  
+  // First  find the maximum number present in the array so we can have the same binary represntation for each number
+
+	for(ll i = 0 ; i < n ; i++)
+	{
+		cin >> a[i] ;
+
+		if(maxx < a[i])
+			maxx = a[i] ;
+	}
+
+	ll max_bits = 0 ;
+
+
+//  count the number of digits in the binary form of maxx 
+// for example if maxx = 11 ( 1011 ) then max_bits = 4
+
+	while(maxx)
+	{
+		max_bits++ ;
+
+		maxx >>= 1 ;
+	}
+  
+  
+  
+  // Now count number of ones and zeros for every number in array
+  // __builtin_popcount gets the number of 1's in a number , for example 11 has 3 1's
+  // to get the number of zeroes  simply subrtact x(number of 1's) from max_bits(4) in this case 
+  
+    vector <  pair <ll , ll> > v ;
+    
+
+    for(ll i = 0 ; i < n ; i++)
+    {
+        ll x = __builtin_popcount(a[i]) ;
+
+        ll y = max_bits - x ;
+
+        v.pb(make_pair(x , y))) ;
+
+    }
+
+    ll total =  0 ;
+
+    total = subsets(v , n) ;    // function to generate subsets
+
+    dec_binary(total , max_bits) ; // function to represent the answer in binary form
+
+}
