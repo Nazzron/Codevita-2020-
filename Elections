@@ -112,6 +112,8 @@ void elections(deque<char> &dq , ll n)
 
 		}
 		// after first iteration the deuque will only contain -> " A " , therefore c1 += 1 , c1 = 2 
+		
+		// Visual respresntation of the final Queue " B B - A A "
 	}
 	
 	
